@@ -1,0 +1,12 @@
+name: Build Image
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 5 * * 3" # At 05:00 on Wednesday # https://crontab.guru/#0_5_*_*_3
+
+jobs:
+  build_image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # TODO
