@@ -1,6 +1,8 @@
 #!/bin/bash -e
 
-cd LicenseFinder
+if [[ -d LicenseFinder ]] ; then
+  cd LicenseFinder
+fi
 
 gem update --system
 bundle install --without runtime default

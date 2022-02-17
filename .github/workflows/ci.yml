@@ -1,0 +1,27 @@
+name: Tests
+concurrency:
+  group: "${{github.workflow}}-${{github.ref}}"
+  cancel-in-progress: true
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * 3" # At 08:00 on Wednesday # https://crontab.guru/#0_8_*_*_3
+  push:
+    branches:
+      - master
+      - v*.*.x
+    tags:
+      - v*.*.*
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - '*'
+
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{github.repository_owner}}/licensefinder
+    steps:
+      - uses: actions/checkout@v2
+      - run: ./ci/scripts/run-rubocop.sh
